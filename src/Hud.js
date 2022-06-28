@@ -15,9 +15,8 @@ export default function Hud() {
   const seconds = useRef()
 
   useEffect(() => {
-    setInterval(() => {
-      console.log(texts[texts.length - 1].posi)
-      if (texts[texts.length - 1].posi > 1) {
+    const i = setInterval(() => {
+      if (texts[texts.length - 1].posi > 1 ) {
         setMid(
           <Middle>
             <h1>Final Score</h1>
@@ -28,7 +27,8 @@ export default function Hud() {
         );
       }
     }, 1000);
-  }, [])
+    return () => clearInterval(i)
+  }, [texts])
   const score = useMemo(() => (points >= 1000 ? (points / 1000).toFixed(1) + 'K' : points), [points])
 
   let warning = '';
@@ -39,14 +39,16 @@ export default function Hud() {
   return (
     <div >
       <UpperLeft onClick={() => toggle()}>
-        sound
+        sound is {sound ? 'on' : 'off'}
         <br />
-        {sound ? 'off' : 'on'}
+        click to turn {sound ? 'off' : 'on'}
         <br />
         {sound == false && 'Seriously, I recommend sound, click this'}
       </UpperLeft>
       <UpperRight>
         <a href="https://github.com/iamameme">github</a>
+        <br/>
+        <a href="https://www.linkedin.com/in/steven-barsam/">linkedin</a>
       </UpperRight>
       {mid}
       <MiddleUpper>

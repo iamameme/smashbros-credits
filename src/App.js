@@ -24,13 +24,13 @@ export default function App() {
   const [backgroundStyle, setStyle ] = useState(undefined);
 
   useEffect(() => {
-    setInterval(() => {
-      if (texts[texts.length - 1].posi > 1) {
+    const i = setInterval(() => {
+      if (texts[texts.length - 1].posi > 1 ) {
         setStyle({ background: 'rgba(0,0,0,.9)' });
       }
     }, 1000);
-  }, [])
-
+    return () => clearInterval(i)
+  }, [texts])
   
   return (
     <div style={backgroundStyle} onPointerMove={actions.updateMouse} onClick={actions.shoot}>

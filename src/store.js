@@ -32,7 +32,7 @@ class CustomSinCurve extends THREE.Curve {
 let guid = 1
 
 const text2 = [['Work Experience'], ['Sears: Selling Mattresses and Electronics', '2014-2016: Was a solid High School job'], ['Cornerstone Resources Credit Union League', '2016-2017: They put a lot of trust in an 18-19 year old'], ['Full Stack: Worked in VBA and Ruby on Rails'],
-['S5 Stratos', 'Nowadays, 2017 - Present'], ['Software Engineer', 'Worked in a lot of things'], ['Mainly React, Java, and lots of database work'], ['It was a small team for a while so', 'We wore lots of hats'], 
+['S5 Stratos - Software Engineer', 'Nowadays, 2017 - Present'], ['Worked in a lot of things'], ['Mainly React, Java, and lots of database work'], ['It was a small team for a while so', 'We wore lots of hats'], 
 ['Lazy.com', 'My full-stack contract work on the side'], ['Mark Cuban is a nice boss']];
 const text3 = [['Cool Things'], ['Runner-Up Riot Games API Challenge 2017', 'I made a React app and it took 2nd'], ['Flappy Doge for Android', 'I was proud of this getting popular in high school']];
 const text4 = [['Education'], ['High School', 'Had a 4.15 GPA... I think that is good'], ['Collin College', '2016-2018: Associates Degree', 'Also was a member of the student government for my time there'], ['Western Governors University', '2019-Present: 14 credit hours from graduating', 'I work a lot so doing this part-time.']]
@@ -52,7 +52,7 @@ const useStore = create((set, get) => {
     sound: false,
     camera: undefined,
    
-    texts: [['Hello I am Steven Barsam'],['This is my website'],['Shoot the text like the Smash Bros Melee credits'], ['Skills', 'Like Things I Code In'], ['React.js'], ['Java', 'And a lil Scala'], ['This was made in threejs'], ['CSS', 'I am a bit of a styling wizard'], ['Relational Databases', 'SQL, Postgres, Clickhouse, etc.'], ['Ruby / Ruby on Rails'], ['VBA', 'Visual Basic for Applications aka for Excel'], ['Solidity and Huff (Assembly-ish)', "I'm sorry"], ['All the other languages I took classes in school in', 'C++, MIPS, etc']]
+    texts: [['Hello I am Steven Barsam'],['This is my website'],['Shoot the text like the Smash Bros Melee credits'], ['Aim by moving your mouse', 'Click to shoot'],['Skills', 'Like Things I Code In'], ['React.js'], ['Java', 'And a lil Scala'], ['This was made in threejs'], ['CSS', 'I am a bit of a styling wizard'], ['Relational Databases', 'SQL, Postgres, Clickhouse, etc.'], ['Ruby / Ruby on Rails'], ['VBA', 'Visual Basic for Applications aka for Excel'], ['Solidity and Huff (Assembly-ish)', "I'm sorry"], ['All the other languages I took classes in school in', 'C++, MIPS, etc']]
       .concat(text2).concat(text3).concat(text4).concat(text5).map((x,i) => ({ index: i, isHit: false, text: x,  hit: new THREE.Vector3()})),
     rocks: randomRocks(5, track, 150, 8, () => 1 + Math.random() * 2.5),
     enemies: randomData(10, track, 20, 15, 1),
