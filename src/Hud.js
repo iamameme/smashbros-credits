@@ -46,9 +46,9 @@ export default function Hud() {
         {sound == false && 'Seriously, I recommend sound, click this'}
       </UpperLeft>
       <UpperRight>
-        <a href="https://github.com/iamameme">github</a>
+        <a target="_blank" href="https://github.com/iamameme">github</a>
         <br/>
-        <a href="https://www.linkedin.com/in/steven-barsam/">linkedin</a>
+        <a target="_blank" href="https://www.linkedin.com/in/steven-barsam/">linkedin</a>
       </UpperRight>
       {mid}
       <MiddleUpper>
