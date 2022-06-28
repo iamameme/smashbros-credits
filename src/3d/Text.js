@@ -35,7 +35,7 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit }) => {
     color: 'white',
     fontFamily: '"Smash", Times, serif',
     fontSize: 6,
-    fontStyle: 'italic',
+    //fontStyle: 'italic',
     text: t.join('\n'),
   });
 
