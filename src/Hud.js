@@ -57,9 +57,9 @@ export default function Hud() {
         <h1>{score}</h1>
       </LowerLeft>
       <Global />
-      {/*<LowerRight>
-        <div style={{ width: health + '%' }} />
-      </LowerRight>*/}
+      <LowerRight>
+        {'Note: Please enable hardware acceleration in your browser.'}
+      </LowerRight>
     </div>
   )
 }
@@ -164,7 +164,6 @@ const LowerRight = styled.div`
   transform: skew(5deg, 5deg);
   height: 40px;
   width: 150px;
-  background: black;
   & > div {
     height: 100%;
     background: indianred;
