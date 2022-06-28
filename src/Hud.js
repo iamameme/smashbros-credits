@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useEffect, useReducer, useState } from 'react'
 import styled, { css, createGlobalStyle } from 'styled-components'
 import useStore from './store'
+import WebGl from './WebGl'
 
 export default function Hud() {
   const points = useStore((state) => state.points)
@@ -30,6 +31,11 @@ export default function Hud() {
   }, [])
   const score = useMemo(() => (points >= 1000 ? (points / 1000).toFixed(1) + 'K' : points), [points])
 
+  let warning = '';
+  if (!WebGl.isWebGLAvailable() ) {
+    // Initiate function or other initializations here
+    warning = "Please enable hardware acceleration in your browser!\n OR ELSE... the site won't work and I'll be sad :(";
+  }
   return (
     <div >
       <UpperLeft onClick={() => toggle()}>
@@ -43,6 +49,9 @@ export default function Hud() {
         <a href="https://github.com/iamameme">github</a>
       </UpperRight>
       {mid}
+      <MiddleUpper>
+        {warning}
+      </MiddleUpper>
       <LowerLeft>
         {/*<h2 ref={seconds}>0.0</h2>*/}
         <h1>{score}</h1>
@@ -70,6 +79,19 @@ const Middle = styled.div`
   ${base}
   top: 200px;
   left: 42%;
+  font-size: 2em;
+  pointer-events: all;
+  @media only screen and (max-width: 900px) {
+    font-size: 1.5em;
+  }
+`
+
+const MiddleUpper = styled.div`
+  ${base}
+  top: 20px;
+  color: blue;
+  white-space: pre-wrap;
+  left: 22%;
   font-size: 2em;
   pointer-events: all;
   @media only screen and (max-width: 900px) {
