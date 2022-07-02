@@ -17,10 +17,10 @@ const direction = new THREE.Vector3()
 export default function Texts() {
     const gltf = useLoader(GLTFLoader, '/rock.gltf')
     const rocks = useStore((state) => state.texts)
-    return rocks.map((data, i) => <Text posit={data.posi} isHit={data.isHit} t={data.text} index={i} />)
+    return rocks.map((data, i) => <Text trackNo={data.trackNo} posit={data.posi} isHit={data.isHit} t={data.text} index={i} />)
   }
 
-const Text = React.memo(({ nodes, materials, t, index, isHit, posit }) => {
+const Text = React.memo(({ nodes, materials, t, index, isHit, posit, trackNo }) => {
   const mutation = useStore((state) => state.mutation)
   const actions = useStore((state) => state.actions)
   const texts = useStore((state) => state.texts)
@@ -29,6 +29,7 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit }) => {
   let offset = 0;
   const test = useRef();
   const test2 = useRef();
+  let hardMode = localStorage.getItem('hardMode') ? localStorage.getItem('hardMode')  === 'true' : false;
 
   let text = new TextSprite({
     alignment: 'left',
@@ -39,15 +40,34 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit }) => {
     text: t.join('\n'),
   });
 
+  let xPos = -350;
+  let yPos = -200;
+  let track = mutation.track2;
+  switch(trackNo) {
+    case 0:
+        xPos = -350;
+        track = mutation.track2;
+        break;
+    case 1:
+        xPos = 500;
+        track = mutation.track3;
+        break;
+    case 2:
+        xPos = 0;
+        yPos = -250;
+        track = mutation.track4;
+        break;
+  }
+
   useFrame(() => {
     if (posi < .60) {
-      posi += 0.002;
+      posi += (0.002 + (hardMode ? 0.002 : 0));
     } else {
-      posi += 0.0005;
+      posi += (0.0005 + (hardMode ? 0.001 : 0));
     }
 
     // get the point at position
-    var point = mutation.track2.parameters.path.getPointAt(posi);
+    var point = track.parameters.path.getPointAt(posi);
     test.current.position.copy(point);
     test.current.visible = true;
 
@@ -67,12 +87,12 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit }) => {
   return (
     <group>
       {/*<group name="text" >
-        <mesh  position={[-350, -200, -400]} geometry={mutation.track2} >
+        <mesh  position={[xPos, yPos, -400]} geometry={track} >
           <meshBasicMaterial color="blue" />
         </mesh>
   </group>*/}
       <group ref={test}>
-        <mesh  ref={test2} position={[-350, -200 , -400]}  renderOrder={1000} material={crossMaterial}>
+        <mesh  ref={test2} position={[xPos, yPos , -400]}  renderOrder={1000} material={crossMaterial}>
           <primitive  scale={[1,1,1]} object={text}  />
         </mesh>
       </group>

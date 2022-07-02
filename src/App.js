@@ -25,7 +25,7 @@ export default function App() {
 
   useEffect(() => {
     const i = setInterval(() => {
-      if (texts[texts.length - 1].posi > 1 ) {
+      if (texts[texts.length - 1] && texts[texts.length - 1].posi > 1 ) {
         setStyle({ background: 'rgba(0,0,0,.9)' });
       }
     }, 1000);
@@ -36,15 +36,15 @@ export default function App() {
     <div style={backgroundStyle} onPointerMove={actions.updateMouse} onClick={actions.shoot}>
       {!backgroundStyle && (
         <Canvas
-        linear
-        mode="concurrent"
-        dpr={[1, 1.5]}
-        gl={{ antialias: false }}
-        camera={{ position: [0, 0, 2000], near: 0.01, far: 10000, fov }}
-        onCreated={({ gl, camera }) => {
-          actions.init(camera)
-          gl.toneMapping = THREE.Uncharted2ToneMapping
-          gl.setClearColor(new THREE.Color('#020209'))
+          linear
+          mode="concurrent"
+          dpr={[1, 1.5]}
+          gl={{ antialias: false }}
+          camera={{ position: [0, 0, 2000], near: 0.01, far: 10000, fov }}
+          onCreated={({ gl, camera }) => {
+            actions.init(camera)
+            gl.toneMapping = THREE.Uncharted2ToneMapping
+            gl.setClearColor(new THREE.Color('#020209'))
         }}>
         {/*<fog attach="fog" args={['#070710', 100, 700]} />*/}
         <ambientLight intensity={0.25} />

@@ -5,35 +5,29 @@ import create from 'zustand'
 import * as audio from './audio'
 
 class CustomSinCurve extends THREE.Curve {
-
-	constructor( scale = 1 ) {
-
+	constructor( scale = 1, angle = 7 * Math.PI / 4 ) {
 		super();
-
 		this.scale = scale;
-
+    this.angle = angle;
 	}
 
 	getPoint( t, optionalTarget = new THREE.Vector3() ) {
-
 		const tx = t * 4 - 1.5;
 		const ty = Math.sin( 1 * Math.PI * t );
 		const tz = 0;
 
     var axis = new THREE.Vector3( 0, 1, 0 );
-    var angle = 7 * Math.PI / 4;
+    var angle = this.angle;
 
 		return optionalTarget.set( tx, ty, tz ).applyAxisAngle( axis, angle ).multiplyScalar( this.scale );
-
 	}
-
 }
 
 let guid = 1
 
 const text2 = [['Work Experience'], ['Sears: Selling Mattresses and Electronics', '2014-2016: Was a solid High School job'], ['Cornerstone Resources Credit Union League', '2016-2017: They put a lot of trust in an 18-19 year old'], ['Full Stack: Worked in VBA and Ruby on Rails'],
 ['S5 Stratos - Software Engineer', 'Nowadays, 2017 - Present'], ['Worked in a lot of things'], ['Mainly React, Java, and lots of database work'], ['It was a small team for a while so', 'We wore lots of hats'], 
-['Lazy.com', 'My full-stack contract work on the side'], ['Mark Cuban is a nice boss']];
+['Lazy.com', 'My full-stack work on the side'], ["It's a little Mark Cuban backed website"]];
 const text3 = [['Cool Things'], ['Runner-Up Riot Games API Challenge 2017', 'I made a React app and it took 2nd'], ['Flappy Doge for Android', 'I was proud of this getting popular in high school']];
 const text4 = [['Education'], ['High School', 'Had a 4.15 GPA... I think that is good'], ['Collin College', '2016-2018: Associates Degree', 'Also was a member of the student government for my time there'], ['Western Governors University', '2019-Present: 14 credit hours from graduating', 'I work a lot so doing this part-time.']]
 const text5 = [['Well anyways'], ['Thats it'], ['Did you get a lot of points?']]
@@ -47,13 +41,17 @@ const useStore = create((set, get) => {
   const box = new THREE.Box3()
 
   let track2 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8), 250, 0.2, 10, false)
-
+  let track3 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8, 7 * Math.PI / 6), 250, 0.2, 10, false)
+  let track4 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8, 3 * Math.PI / 2), 250, 0.2, 10, false)
+  //  Math.floor(Math.random() * 3);
+  let hardMode = localStorage.getItem('hardMode') ? localStorage.getItem('hardMode')  === 'true' : false;
+  
   return {
     sound: false,
     camera: undefined,
    
     texts: [['Hello I am Steven Barsam'],['This is my website'],['Shoot the text like the Smash Bros Melee credits'], ['Aim by moving your mouse', 'Click to shoot'],['Skills', 'Like Things I Code In'], ['React.js'], ['Java', 'And a lil Scala'], ['This was made in threejs'], ['CSS', 'I am a bit of a styling wizard'], ['Relational Databases', 'SQL, Postgres, Clickhouse, etc.'], ['Ruby / Ruby on Rails'], ['VBA', 'Visual Basic for Applications aka for Excel'], ['Solidity and Huff (Assembly-ish)', "I'm sorry"], ['All the other languages I took classes in school in', 'C++, MIPS, etc']]
-      .concat(text2).concat(text3).concat(text4).concat(text5).map((x,i) => ({ index: i, isHit: false, text: x,  hit: new THREE.Vector3()})),
+      .concat(text2).concat(text3).concat(text4).concat(text5).map((x,i) => ({ trackNo: hardMode ? Math.floor(Math.random() * 3) : 0, index: i, isHit: false, text: x,  hit: new THREE.Vector3()})),
     rocks: randomRocks(5, track, 150, 8, () => 1 + Math.random() * 2.5),
     enemies: randomData(10, track, 20, 15, 1),
     points: 0,
@@ -69,6 +67,8 @@ const useStore = create((set, get) => {
 
       track,
       track2,
+      track3,
+      track4,
       scale: 15,
       fov: 70,
       hits: false,
@@ -92,9 +92,9 @@ const useStore = create((set, get) => {
           textsHit: [],
           health: 100,
           lasers: [],
+          texts: [],
           explosions: [],
            mutation: {
-          t: 0,
           position: new THREE.Vector3(),
           startTime: Date.now(),
     
@@ -156,7 +156,7 @@ const useStore = create((set, get) => {
             cancelExplosionTO = setTimeout(() => set((state) => ({ explosions: state.explosions.filter(({ time }) => Date.now() - time <= 1000) })), 1000)
             const indexes = r.map(x => x.index);
             set((state) => ({
-              points: state.points + r.length * 100,
+              points: state.points + r.length * (hardMode ? 300 : 100),
               //textsHit: state.textsHit.concat(indexes),
               texts: state.texts.map((rock) => ({...rock, isHit: indexes.indexOf(rock.index) > -1 ? true : rock.isHit}))
               //rocks: state.rocks.map((rock) => ({...rock, isHit: r.guid == rock.guid ? true : rock.isHit})),

@@ -16,7 +16,7 @@ export default function Hud() {
 
   useEffect(() => {
     const i = setInterval(() => {
-      if (texts[texts.length - 1].posi > 1 ) {
+      if (texts[texts.length - 1] && texts[texts.length - 1].posi > 1 ) {
         setMid(
           <Middle>
             <h1>Final Score</h1>
@@ -36,6 +36,13 @@ export default function Hud() {
     // Initiate function or other initializations here
     warning = "Please enable hardware acceleration in your browser!\n OR ELSE... the site won't work and I'll be sad :(";
   }
+
+  const turnHardMode = (currentMode) => {
+    localStorage.setItem('hardMode', !currentMode ? true : false);
+    location.reload();
+  };
+
+  let hardMode = localStorage.getItem('hardMode')  ? localStorage.getItem('hardMode')  === 'true' : false;
   return (
     <div >
       <UpperLeft onClick={() => toggle()}>
@@ -43,7 +50,10 @@ export default function Hud() {
         <br />
         click to turn {sound ? 'off' : 'on'}
         <br />
-        {sound == false && 'Seriously, I recommend sound, click this'}
+        <h3 
+          onClick={() => turnHardMode(hardMode)}
+          style={{ cursor: 'pointer'}}
+        >{hardMode ? 'Turn off Hard Mode?' : 'Turn on Hard Mode?'}</h3>
       </UpperLeft>
       <UpperRight>
         <a target="_blank" href="https://github.com/iamameme">github</a>
@@ -58,6 +68,9 @@ export default function Hud() {
         {/*<h2 ref={seconds}>0.0</h2>*/}
         <h1>{score}</h1>
       </LowerLeft>
+      <MiddleLower>
+        
+      </MiddleLower>
       <Global />
       <LowerRight>
         {'Note: Please enable hardware acceleration in your browser.'}
@@ -94,6 +107,18 @@ const MiddleUpper = styled.div`
   color: blue;
   white-space: pre-wrap;
   left: 22%;
+  font-size: 2em;
+  pointer-events: all;
+  @media only screen and (max-width: 900px) {
+    font-size: 1.5em;
+  }
+`
+
+const MiddleLower = styled.div`
+  ${base}
+  bottom: -25px;
+  white-space: pre-wrap;
+  right: 10px;
   font-size: 2em;
   pointer-events: all;
   @media only screen and (max-width: 900px) {
