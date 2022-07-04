@@ -43,15 +43,20 @@ const useStore = create((set, get) => {
   let track2 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8), 250, 0.2, 10, false)
   let track3 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8, 7 * Math.PI / 6), 250, 0.2, 10, false)
   let track4 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8, 3 * Math.PI / 2), 250, 0.2, 10, false)
+  let track5 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8), 250, 0.2, 10, false)
   //  Math.floor(Math.random() * 3);
   let hardMode = localStorage.getItem('hardMode') ? localStorage.getItem('hardMode')  === 'true' : false;
-  
+  let text6 = [];
+  if (hardMode) {
+    text6 = [['Hey, you picked the hard mode'], ['You get some extra text', 'Ya know, more points'], ['Thanks for caring about the points'], ['Your name will be etched in the upper echilons'], ['...of stevenbarsam.com']]
+  }
+   
   return {
     sound: false,
     camera: undefined,
    
     texts: [['Hello I am Steven Barsam'],['This is my website'],['Shoot the text like the Smash Bros Melee credits'], ['Aim by moving your mouse', 'Click to shoot'],['Skills', 'Like Things I Code In'], ['React.js'], ['Java', 'And a lil Scala'], ['This was made in threejs'], ['CSS', 'I am a bit of a styling wizard'], ['Relational Databases', 'SQL, Postgres, Clickhouse, etc.'], ['Ruby / Ruby on Rails'], ['VBA', 'Visual Basic for Applications aka for Excel'], ['Solidity and Huff (Assembly-ish)', "I'm sorry"], ['All the other languages I took classes in school in', 'C++, MIPS, etc']]
-      .concat(text2).concat(text3).concat(text4).concat(text5).map((x,i) => ({ trackNo: hardMode ? Math.floor(Math.random() * 3) : 0, index: i, isHit: false, text: x,  hit: new THREE.Vector3()})),
+      .concat(text2).concat(text3).concat(text4).concat(text5).concat(text6).map((x,i) => ({ trackNo: hardMode ? Math.floor(Math.random() * 5) : 0, index: i, isHit: false, text: x,  hit: new THREE.Vector3()})),
     rocks: randomRocks(5, track, 150, 8, () => 1 + Math.random() * 2.5),
     enemies: randomData(10, track, 20, 15, 1),
     points: 0,
@@ -69,6 +74,7 @@ const useStore = create((set, get) => {
       track2,
       track3,
       track4,
+      track5,
       scale: 15,
       fov: 70,
       hits: false,

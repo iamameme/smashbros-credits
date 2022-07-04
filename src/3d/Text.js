@@ -57,6 +57,16 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit, trackNo }) 
         yPos = -250;
         track = mutation.track4;
         break;
+    case 3:
+        xPos = -300;
+        yPos = -150;
+        track = mutation.track5;
+        break;
+    case 4:
+        xPos = 450;
+        yPos = -80;
+        track = mutation.track3;
+        break;
   }
 
   useFrame(() => {
@@ -86,11 +96,11 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit, trackNo }) 
 
   return (
     <group>
-      {/*<group name="text" >
-        <mesh  position={[xPos, yPos, -400]} geometry={track} >
+      <group name="text" >
+        {/*<mesh  position={[xPos, yPos, -400]} geometry={track} >
           <meshBasicMaterial color="blue" />
-        </mesh>
-  </group>*/}
+  </mesh>*/}
+  </group>
       <group ref={test}>
         <mesh  ref={test2} position={[xPos, yPos , -400]}  renderOrder={1000} material={crossMaterial}>
           <primitive  scale={[1,1,1]} object={text}  />

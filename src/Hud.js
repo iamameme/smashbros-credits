@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useEffect, useReducer, useState } from 'react'
 import styled, { css, createGlobalStyle } from 'styled-components'
+import { getLeaderboard, postToLeaderboard } from './helpers/database'
 import useStore from './store'
 import WebGl from './WebGl'
 
@@ -11,20 +12,36 @@ export default function Hud() {
   const actions = useStore((state) => state.actions);
   const texts = useStore((state) => state.texts);
   const [mid, setMid] = useState(<div/>);
+  const [scoreData, setScoreData] = useState();
+  const [name, setName] = useState('mynameis');
 
   const seconds = useRef()
+  let minScore = -1;
+  if (scoreData && scoreData.length > 10) {
+    minScore = scoreData[scoreData.length - 1];
+  }
+
+  const getLeaderboardData = () => {
+    getLeaderboard().then(data => {
+      const finalData = new Array(10).fill({ name: '...', score: 0});
+      data.forEach((x,i) => finalData[i] = x);
+      setScoreData(finalData);
+    });
+  }
+
+  useEffect(() => {
+    getLeaderboardData();
+  }, [])
 
   useEffect(() => {
     const i = setInterval(() => {
       if (texts[texts.length - 1] && texts[texts.length - 1].posi > 1 ) {
-        setMid(
-          <Middle>
-            <h1>Final Score</h1>
-            <h2 style={{ textAlign: 'center'}}>{score}</h2>
-            <br></br>
-            <h1 style={{ cursor: 'pointer'}} onClick={() => { location.reload()}}>Play Again?</h1>
-          </Middle>
-        );
+        if (points > minScore) {
+          setMid('highScoreContent');
+        } else {
+          setMid('leaderboardContent');
+        }
+        clearInterval(i);
       }
     }, 1000);
     return () => clearInterval(i)
@@ -43,6 +60,34 @@ export default function Hud() {
   };
 
   let hardMode = localStorage.getItem('hardMode')  ? localStorage.getItem('hardMode')  === 'true' : false;
+
+  const submitHighScore = () => {
+    postToLeaderboard(name, points).then(x => getLeaderboardData());
+    setMid('leaderboardContent');
+  };
+  const getStyle = (index) => {
+    let style = {};
+    switch (index) {
+      case 0:
+        style.color = 'rgb(239,0,0)';
+        break;
+      case 1:
+        style.color = '#F400F4';
+        break;
+      case 2:
+        style.color = '#00E001';
+        break;
+      case 3:
+        style.color = '#06BABA';
+        break;
+      case 4:
+        style.color = '#E5E500';
+        break;
+      default:
+        style.color = 'white';
+    }
+    return style;
+  };
   return (
     <div >
       <UpperLeft onClick={() => toggle()}>
@@ -60,7 +105,39 @@ export default function Hud() {
         <br/>
         <a target="_blank" href="https://www.linkedin.com/in/steven-barsam/">linkedin</a>
       </UpperRight>
-      {mid}
+      {mid == 'leaderboardContent' && (
+        <Middle>
+          <h1>Leaderboard</h1>
+          <table>
+            {scoreData && scoreData.map((x,i) => (
+              <tr style={getStyle(i)}>
+                <td>{i + 1}</td>
+                <td>{x.name}</td>
+                <td style={{ textAlign: 'end' }}>{x.score}</td>
+              </tr>
+            ))}
+          </table>
+          <br></br>
+          <h2 className="button" onClick={() => { location.reload()}}>Play Again?</h2>
+        </Middle>
+      )}
+      {mid == 'highScoreContent' && (
+        <Middle2>
+          <h1 style={{ lineHeight: 1 }}>New High Score!</h1>
+          <h2 style={{ textAlign: 'center'}}>{score}</h2>
+          <br></br>
+          <div style={{ display: 'flex', width: 680, margin: '0 auto'}}>
+            <h2 className="entername">Type Name:</h2>
+            <input defaultValue={"CLICKHERE"} maxLength={9} onChange={(e) => setName(e.target.value.toUpperCase())} />
+          </div>
+          <h2 className="button" style={{ marginTop: 100, fontSize: 24 }} onClick={() => submitHighScore()}>Submit High Score</h2>
+          <div style={{ marginTop: 40 }} className="buttondont button" onClick={() => {
+            setMid('leaderboardContent')
+          }}>
+            <span>{"or don't"}</span>
+          </div>
+        </Middle2>
+      )}
       <MiddleUpper>
         {warning}
       </MiddleUpper>
@@ -90,12 +167,112 @@ const base = css`
   color: indianred;
 `
 
+const Middle2 = styled.div`
+  ${base}
+  top: 140px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 800px;
+  text-align: center;
+  font-family: 'Pixel';
+  color: white;
+  font-size: 30px;
+  pointer-events: all;
+  & > h1 {
+    color: rgb(0 255 255);
+    text-shadow: 5px 5px indianred;
+    margin-bottom: 80px;
+  }
+  & * .entername {
+    font-family: Pixel;
+    font-size: 30px;
+    width: 340px;
+    color: yellow;
+  }
+  & * input {
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    font-family: 'Pixel', sans-serif;
+    font-size: 30px;
+    border: none;
+    width: 300px;
+    height: 30px;
+    margin-left: 30px;
+    margin-top: 24px;
+    text-transform: uppercase;
+  }
+  *:focus {
+      outline: none;
+  }
+  & > .buttondont {
+    font-size: 14px;
+    margin-top: 40px;
+    width: 120px !important;
+    height: 64px;
+    line-height: 1.5;
+    margin-top: 40;
+  }
+  & > .button {
+    width: 330px;
+    border: 5px solid white;
+    padding: 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 auto;
+  }
+  & > .button:hover {
+    background: lightgrey;
+  }
+  & * span {
+    top: -13px;
+    position: relative;
+  }
+  @media only screen and (max-width: 900px) {
+    font-size: 1.5em;
+  }
+`
+
 const Middle = styled.div`
   ${base}
-  top: 200px;
-  left: 42%;
+  top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 800px;
   font-size: 2em;
   pointer-events: all;
+  text-align: center;
+  font-family: Pixel;
+  & > h1 {
+    font-size: 52px;
+    color: rgb(0 255 255);
+    text-shadow: 5px 5px indianred;
+    margin-bottom: 70px;
+  }
+  & > table {
+    border-collapse: separate;
+    border-spacing: 12px;
+    font-family: Pixel;
+    width: 600px;
+    margin: 20px auto;
+  }
+  & > .button {
+    width: 220px;
+    border: 5px solid blue;
+    padding: 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 auto;
+    font-size: 30px;
+    color: blue;
+  }
+  & > .button:hover {
+    background: #6262ff;
+  }
   @media only screen and (max-width: 900px) {
     font-size: 1.5em;
   }

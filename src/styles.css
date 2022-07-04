@@ -12,3 +12,8 @@ body,
   font-family: 'Smash';
   src: local('Smash'), url(./smash.otf) format('opentype');
 }
+
+@font-face {
+  font-family: 'Pixel';
+  src: local('Pixel'), url(./Pixel.ttf) format('opentype');
+}
