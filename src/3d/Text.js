@@ -15,7 +15,7 @@ const position = new THREE.Vector3()
 const direction = new THREE.Vector3()
 
 export default function Texts() {
-    const gltf = useLoader(GLTFLoader, '/rock.gltf')
+    const gltf = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/rock.gltf')
     const rocks = useStore((state) => state.texts)
     return rocks.map((data, i) => <Text trackNo={data.trackNo} posit={data.posi} isHit={data.isHit} t={data.text} index={i} />)
   }

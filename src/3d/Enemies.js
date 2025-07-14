@@ -16,7 +16,7 @@ const bodyMaterial = new THREE.MeshPhongMaterial({ color: new THREE.Color('black
 
 const Drone = React.memo(({ data }) => {
   const { clock } = useStore((state) => state.mutation)
-  const { nodes, materials } = useLoader(GLTFLoader, '/drone.gltf')
+  const { nodes, materials } = useLoader(GLTFLoader,process.env.PUBLIC_URL +  '/drone.gltf')
   const ref = useRef()
 
   useFrame(() => {

@@ -6,7 +6,7 @@ import * as THREE from 'three'
 import TextSprite from '@seregpie/three.text-sprite';
 
 export default function Rocks() {
-  const gltf = useLoader(GLTFLoader, '/rock.gltf')
+  const gltf = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/rock.gltf')
   const rocks = useStore((state) => state.rocks)
   return rocks.map((data) => <Rock {...gltf} key={data.guid} data={data} />)
 }
