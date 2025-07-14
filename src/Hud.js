@@ -29,9 +29,9 @@ export default function Hud() {
     });
   }
 
-  useEffect(() => {
-    getLeaderboardData();
-  }, [])
+  // useEffect(() => {
+  //   getLeaderboardData();
+  // }, [])
 
   useEffect(() => {
     const i = setInterval(() => {
@@ -62,7 +62,7 @@ export default function Hud() {
   let hardMode = localStorage.getItem('hardMode')  ? localStorage.getItem('hardMode')  === 'true' : false;
 
   const submitHighScore = () => {
-    postToLeaderboard(name, points).then(x => getLeaderboardData());
+    //postToLeaderboard(name, points).then(x => getLeaderboardData());
     setMid('leaderboardContent');
   };
   const getStyle = (index) => {
