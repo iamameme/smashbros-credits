@@ -45,7 +45,7 @@ const useStore = create((set, get) => {
   let track4 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8, 3 * Math.PI / 2), 250, 0.2, 10, false)
   let track5 = new THREE.TubeGeometry(new CustomSinCurve(40 * 8), 250, 0.2, 10, false)
   //  Math.floor(Math.random() * 3);
-  let hardMode = localStorage.getItem('hardMode') ? localStorage.getItem('hardMode')  === 'true' : false;
+  let hardMode = localStorage.getItem('hardMode') ? localStorage.getItem('hardMode')  === 'true' : true;
   let text6 = [];
   if (hardMode) {
     text6 = [['Hey, you picked the hard mode'], ['You get some extra text', 'Ya know, more points'], ['Thanks for caring about the points'], ['Your name will be etched in the upper echilons'], ['...of stevenbarsam.com']]

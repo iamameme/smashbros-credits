@@ -29,7 +29,7 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit, trackNo }) 
   let offset = 0;
   const test = useRef();
   const test2 = useRef();
-  let hardMode = localStorage.getItem('hardMode') ? localStorage.getItem('hardMode')  === 'true' : false;
+  let hardMode = localStorage.getItem('hardMode') ? localStorage.getItem('hardMode')  === 'true' : true;
 
   let text = new TextSprite({
     alignment: 'left',
@@ -71,9 +71,9 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit, trackNo }) 
 
   useFrame(() => {
     if (posi < .60) {
-      posi += (0.002 + (hardMode ? 0.001 : 0));
+      posi += (0.002 + (hardMode ? 0.0008 : 0));
     } else {
-      posi += (0.0005 + (hardMode ? 0.001 : 0));
+      posi += (0.0005 + (hardMode ? 0.0008 : 0));
     }
 
     // get the point at position
