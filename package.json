@@ -1,7 +1,7 @@
 {
   "name": "space-game",
   "version": "1.0.0",
-  "homepage": "https://github.com/iamameme/smashbros-credits",
+  "homepage": "https://iamameme.github.io/smashbros-credits",
   "description": "A small demo that shows how to manage game entities.",
   "keywords": [
     "zustand",
