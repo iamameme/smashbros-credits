@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/smashbros-credits/static/css/main.5677ea2c.chunk.css",
-    "main.js": "/smashbros-credits/static/js/main.15c2979b.chunk.js",
-    "main.js.map": "/smashbros-credits/static/js/main.15c2979b.chunk.js.map",
+    "main.js": "/smashbros-credits/static/js/main.f70d14e3.chunk.js",
+    "main.js.map": "/smashbros-credits/static/js/main.f70d14e3.chunk.js.map",
     "runtime-main.js": "/smashbros-credits/static/js/runtime-main.56eb84dd.js",
     "runtime-main.js.map": "/smashbros-credits/static/js/runtime-main.56eb84dd.js.map",
     "static/js/2.96c19516.chunk.js": "/smashbros-credits/static/js/2.96c19516.chunk.js",
@@ -25,6 +25,6 @@
     "static/js/runtime-main.56eb84dd.js",
     "static/js/2.96c19516.chunk.js",
     "static/css/main.5677ea2c.chunk.css",
-    "static/js/main.15c2979b.chunk.js"
+    "static/js/main.f70d14e3.chunk.js"
   ]
 }
