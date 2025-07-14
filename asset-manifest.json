@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/iamameme/smashbros-credits/static/css/main.584db5fb.chunk.css",
+    "main.js": "/iamameme/smashbros-credits/static/js/main.15c2979b.chunk.js",
+    "main.js.map": "/iamameme/smashbros-credits/static/js/main.15c2979b.chunk.js.map",
+    "runtime-main.js": "/iamameme/smashbros-credits/static/js/runtime-main.fe306438.js",
+    "runtime-main.js.map": "/iamameme/smashbros-credits/static/js/runtime-main.fe306438.js.map",
+    "static/js/2.cfe8cddb.chunk.js": "/iamameme/smashbros-credits/static/js/2.cfe8cddb.chunk.js",
+    "static/js/2.cfe8cddb.chunk.js.map": "/iamameme/smashbros-credits/static/js/2.cfe8cddb.chunk.js.map",
+    "index.html": "/iamameme/smashbros-credits/index.html",
+    "static/css/main.584db5fb.chunk.css.map": "/iamameme/smashbros-credits/static/css/main.584db5fb.chunk.css.map",
+    "static/js/2.cfe8cddb.chunk.js.LICENSE.txt": "/iamameme/smashbros-credits/static/js/2.cfe8cddb.chunk.js.LICENSE.txt",
+    "static/media/styles.css": "/iamameme/smashbros-credits/static/media/smash.d24c1b37.otf",
+    "static/media/bg.81cfa304.mp3": "/iamameme/smashbros-credits/static/media/bg.81cfa304.mp3",
+    "static/media/click.db461987.mp3": "/iamameme/smashbros-credits/static/media/click.db461987.mp3",
+    "static/media/earth.45ed3b77.jpg": "/iamameme/smashbros-credits/static/media/earth.45ed3b77.jpg",
+    "static/media/engine.75bbe12e.mp3": "/iamameme/smashbros-credits/static/media/engine.75bbe12e.mp3",
+    "static/media/engine2.87c3c40a.mp3": "/iamameme/smashbros-credits/static/media/engine2.87c3c40a.mp3",
+    "static/media/explosion.615cfd43.mp3": "/iamameme/smashbros-credits/static/media/explosion.615cfd43.mp3",
+    "static/media/laser.373d639d.mp3": "/iamameme/smashbros-credits/static/media/laser.373d639d.mp3",
+    "static/media/moon.27019542.png": "/iamameme/smashbros-credits/static/media/moon.27019542.png",
+    "static/media/warp.1f9bec85.mp3": "/iamameme/smashbros-credits/static/media/warp.1f9bec85.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fe306438.js",
+    "static/js/2.cfe8cddb.chunk.js",
+    "static/css/main.584db5fb.chunk.css",
+    "static/js/main.15c2979b.chunk.js"
+  ]
+}
