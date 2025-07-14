@@ -55,7 +55,7 @@ const useStore = create((set, get) => {
     sound: false,
     camera: undefined,
    
-    texts: [['Hello I am Steven Barsam'],['This is my website'],['Shoot the text like the Smash Bros Melee credits'], ['Aim by moving your mouse', 'Click to shoot'],['Skills', 'Like Things I Code In'], ['Unreal', 'Blueprints and C++'], ['Unity', 'Obsessed with LINQ'], ['React.js'], ['Java', 'And a lil Scala'], ['This was made in threejs'], ['CSS', 'I am a bit of a styling wizard'], ['Relational Databases', 'SQL, Postgres, Clickhouse, etc.'], ['Solidity and Huff (Assembly-ish)', "I'm sorry"], ['All the other languages I took classes in school in', 'C++, MIPS, etc']]
+    texts: [['Hello I am Steven Barsam'],['This is my website'],['Shoot the text like the Smash Bros Melee credits'], ['Aim by moving your mouse', 'Click to shoot'],['Skills', 'Like Things I Code In'], ['Unreal', 'Blueprints and C++'], ['Unity', 'Obsessed with LINQ'], ['React.js'], ['Java', 'And a lil Scala'], ['This was made in threejs'], ['Relational Databases', 'SQL, Postgres, Clickhouse, etc.'], ['Solidity and Huff (Assembly-ish)', "I'm sorry"], ['All the other languages I took classes in school in', 'C++, MIPS, etc']]
       .concat(text2).concat(text3).concat(text4).concat(text5).concat(text6).map((x,i) => ({ trackNo: hardMode ? Math.floor(Math.random() * 5) : 0, index: i, isHit: false, text: x,  hit: new THREE.Vector3()})),
     rocks: randomRocks(5, track, 150, 8, () => 1 + Math.random() * 2.5),
     enemies: randomData(10, track, 20, 15, 1),
