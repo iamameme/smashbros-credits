@@ -59,7 +59,7 @@ export default function Hud() {
     location.reload();
   };
 
-  let hardMode = localStorage.getItem('hardMode')  ? localStorage.getItem('hardMode')  === 'true' : false;
+  let hardMode = localStorage.getItem('hardMode')  ? localStorage.getItem('hardMode')  === 'true' : true;
 
   const submitHighScore = () => {
     //postToLeaderboard(name, points).then(x => getLeaderboardData());

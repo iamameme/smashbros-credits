@@ -71,9 +71,9 @@ const Text = React.memo(({ nodes, materials, t, index, isHit, posit, trackNo }) 
 
   useFrame(() => {
     if (posi < .60) {
-      posi += (0.002 + (hardMode ? 0.002 : 0));
+      posi += (0.002 + (hardMode ? 0.0005 : 0));
     } else {
-      posi += (0.0005 + (hardMode ? 0.001 : 0));
+      posi += (0.0005 + (hardMode ? 0.0005 : 0));
     }
 
     // get the point at position
